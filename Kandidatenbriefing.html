@@ -1,0 +1,1578 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Briefing für den Oliver Wyman × STADS Hackathon 2026: White Spots für ein urbanes Premium-Food-Konzept identifizieren.">
+  <title>Oliver Wyman × STADS Hackathon 2026</title>
+  <style>
+    :root {
+      --midnight: #000f47;
+      --active-blue: #0b4bff;
+      --blue-500: #82baff;
+      --sky: #ceecff;
+      --gold: #ffbf00;
+      --gold-light: #fff3da;
+      --neutral-1000: #3d3c37;
+      --neutral-875: #5f5e59;
+      --neutral-750: #7b7974;
+      --neutral-500: #b9b6b1;
+      --neutral-400: #d1cec9;
+      --neutral-300: #eae7e2;
+      --neutral-250: #f7f3ee;
+      --white: #ffffff;
+      --heading: "Marsh Serif", Georgia, "Times New Roman", serif;
+      --body: "Noto Sans", "Avenir Next", Helvetica, Arial, sans-serif;
+      --content: 1180px;
+      --pad: clamp(24px, 5vw, 72px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 84px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--midnight);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      padding: 10px 14px;
+      background: var(--midnight);
+      color: var(--white);
+      transform: translateY(-110%);
+      transition: transform 160ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      height: 72px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--neutral-300);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      width: min(var(--content), calc(100% - 40px));
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 0 0 auto;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 132px;
+      height: auto;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 26px;
+      background: var(--neutral-400);
+    }
+
+    .brand-partner {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      padding: 8px 10px;
+      color: var(--neutral-750);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 150ms ease, background-color 150ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
+    .nav-links a[aria-current="true"] {
+      background: var(--neutral-250);
+      color: var(--midnight);
+      outline: none;
+    }
+
+    .scroll-progress {
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 0;
+      height: 2px;
+      background: var(--active-blue);
+    }
+
+    .container {
+      width: min(var(--content), calc(100% - (2 * var(--pad))));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100svh;
+      padding: 132px 0 52px;
+      display: grid;
+      align-items: center;
+      background: var(--sky);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+      align-items: center;
+      gap: clamp(48px, 7vw, 100px);
+    }
+
+    .eyebrow,
+    .section-kicker {
+      margin: 0 0 20px;
+      color: var(--active-blue);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    .serif {
+      font-family: var(--heading);
+      font-weight: 400;
+      letter-spacing: -0.022em;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 26px;
+      font-size: clamp(3.5rem, 7.1vw, 6.6rem);
+      line-height: 0.95;
+    }
+
+    .hero-question {
+      max-width: 690px;
+      margin-bottom: 18px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      line-height: 1.16;
+    }
+
+    .hero-lead {
+      max-width: 610px;
+      margin-bottom: 34px;
+      font-size: clamp(1rem, 1.5vw, 1.14rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      min-height: 46px;
+      padding: 12px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--midnight);
+      background: var(--midnight);
+      color: var(--white);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      background: var(--active-blue);
+      border-color: var(--active-blue);
+      outline: none;
+    }
+
+    .button-secondary {
+      background: transparent;
+      color: var(--midnight);
+    }
+
+    .button-secondary:hover,
+    .button-secondary:focus-visible {
+      background: var(--white);
+      border-color: var(--midnight);
+      color: var(--midnight);
+    }
+
+    .button-arrow {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .map-card {
+      position: relative;
+      min-height: 510px;
+      border: 1px solid rgba(0, 15, 71, 0.22);
+      background: rgba(255, 255, 255, 0.56);
+    }
+
+    .city-map {
+      width: 100%;
+      height: 100%;
+      min-height: 510px;
+      display: block;
+    }
+
+    .map-grid line {
+      stroke: #d1cec9;
+      stroke-width: 1;
+    }
+
+    .block {
+      fill: #f7f3ee;
+      stroke: #b9b6b1;
+      stroke-width: 1;
+    }
+
+    .block.signal {
+      fill: #ceecff;
+      stroke: #82baff;
+    }
+
+    .road {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 16;
+    }
+
+    .road-edge {
+      fill: none;
+      stroke: #b9b6b1;
+      stroke-width: 18;
+      opacity: 0.42;
+    }
+
+    .transit {
+      fill: none;
+      stroke: var(--active-blue);
+      stroke-width: 3;
+      stroke-dasharray: 4 7;
+    }
+
+    .candidate-ring {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 3;
+      transform-origin: center;
+      animation: scan 3.2s ease-out infinite;
+    }
+
+    .candidate-core {
+      fill: var(--gold);
+      stroke: var(--midnight);
+      stroke-width: 2;
+    }
+
+    .hero-meta {
+      grid-column: 1 / -1;
+      margin-top: 18px;
+      padding-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(0, 15, 71, 0.26);
+    }
+
+    .meta-item {
+      padding: 4px 28px 4px 0;
+    }
+
+    .meta-item + .meta-item {
+      padding-left: 28px;
+      border-left: 1px solid rgba(0, 15, 71, 0.22);
+    }
+
+    .meta-item span {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--neutral-750);
+      font-size: 0.7rem;
+    }
+
+    .meta-item strong {
+      font-size: 0.92rem;
+    }
+
+    .section {
+      padding: clamp(92px, 11vw, 150px) 0;
+      border-bottom: 1px solid var(--neutral-300);
+    }
+
+    .section-neutral {
+      background: var(--neutral-250);
+    }
+
+    .section-midnight {
+      background: var(--midnight);
+      color: var(--white);
+    }
+
+    .section-head {
+      max-width: 850px;
+      margin-bottom: clamp(48px, 6vw, 76px);
+    }
+
+    .section-head h2 {
+      margin-bottom: 16px;
+      font-size: clamp(2.5rem, 5vw, 4.6rem);
+      line-height: 1.02;
+    }
+
+    .section-deck {
+      max-width: 760px;
+      margin-bottom: 0;
+      color: var(--neutral-750);
+      font-size: clamp(1rem, 1.4vw, 1.12rem);
+    }
+
+    .section-midnight .section-kicker {
+      color: var(--blue-500);
+    }
+
+    .section-midnight .section-deck {
+      color: var(--neutral-300);
+    }
+
+    .challenge-story {
+      max-width: 1040px;
+    }
+
+    .challenge-context,
+    .challenge-task {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 34px;
+      align-items: start;
+      padding-top: 26px;
+      border-top: 1px solid var(--neutral-400);
+    }
+
+    .challenge-label {
+      color: var(--neutral-750);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+    }
+
+    .challenge-context-copy,
+    .challenge-task-copy {
+      max-width: 800px;
+    }
+
+    .challenge-context-copy p {
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .challenge-context-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .business-question {
+      margin: 58px 0 0;
+      padding: 42px 0;
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 34px;
+      align-items: start;
+      border-top: 1px solid var(--midnight);
+    }
+
+    .business-question span {
+      color: var(--active-blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+    }
+
+    .business-question p {
+      max-width: 820px;
+      margin-bottom: 0;
+      font-family: var(--heading);
+      font-size: clamp(2rem, 3.5vw, 3.4rem);
+      line-height: 1.08;
+    }
+
+    .challenge-task-copy > p {
+      max-width: 720px;
+      margin-bottom: 0;
+    }
+
+    .challenge-outcomes {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--neutral-400);
+      border-bottom: 1px solid var(--neutral-400);
+    }
+
+    .challenge-outcome {
+      min-height: 96px;
+      padding: 20px 22px 20px 0;
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .challenge-outcome + .challenge-outcome {
+      padding-left: 22px;
+      border-left: 1px solid var(--neutral-400);
+    }
+
+    .challenge-outcome span {
+      color: var(--active-blue);
+      font-family: var(--heading);
+      font-size: 1.15rem;
+    }
+
+    .challenge-outcome strong {
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+
+    .challenge-note {
+      max-width: 800px;
+      margin: 40px 0 0 214px;
+      padding-left: 22px;
+      border-left: 4px solid var(--active-blue);
+      color: var(--neutral-750);
+      font-size: 0.9rem;
+    }
+
+    .challenge-note strong {
+      color: var(--midnight);
+    }
+
+    .framework {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-top: 1px solid var(--neutral-400);
+      border-bottom: 1px solid var(--neutral-400);
+    }
+
+    .framework-step {
+      position: relative;
+      min-height: 260px;
+      padding: 28px 22px 32px;
+    }
+
+    .framework-step + .framework-step {
+      border-left: 1px solid var(--neutral-400);
+    }
+
+    .framework-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 34px;
+      right: 20px;
+      color: var(--active-blue);
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    .step-num {
+      display: block;
+      margin-bottom: 52px;
+      color: var(--active-blue);
+      font-family: var(--heading);
+      font-size: 1.45rem;
+    }
+
+    .framework-step p {
+      margin-bottom: 0;
+      color: var(--neutral-750);
+      font-size: 0.83rem;
+      line-height: 1.5;
+    }
+
+    .spike {
+      margin-top: 66px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      border: 1px solid var(--neutral-400);
+    }
+
+    .spike-copy {
+      padding: clamp(30px, 5vw, 56px);
+      background: var(--midnight);
+      color: var(--white);
+    }
+
+    .spike-copy .spike-label {
+      display: block;
+      margin-bottom: 28px;
+      color: var(--blue-500);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .spike-copy h3 {
+      margin-bottom: 18px;
+      font-family: var(--heading);
+      font-size: clamp(2rem, 3.6vw, 3.25rem);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .spike-copy p {
+      margin-bottom: 0;
+      color: var(--neutral-300);
+    }
+
+    .spike-options {
+      display: grid;
+      grid-template-rows: auto repeat(3, 1fr);
+      background: var(--white);
+    }
+
+    .spike-examples-label {
+      margin: 0;
+      padding: 14px 30px 12px;
+      border-bottom: 1px solid var(--neutral-300);
+      color: var(--neutral-750);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .spike-option {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 30px;
+    }
+
+    .spike-option + .spike-option {
+      border-top: 1px solid var(--neutral-300);
+    }
+
+    .spike-option span {
+      color: var(--active-blue);
+      font-family: var(--heading);
+      font-size: 1.4rem;
+    }
+
+    .spike-option strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.9rem;
+    }
+
+    .spike-option p {
+      margin-bottom: 0;
+      color: var(--neutral-750);
+      font-size: 0.8rem;
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--neutral-400);
+      border: 1px solid var(--neutral-400);
+    }
+
+    .criteria-card {
+      display: grid;
+      grid-template-rows: 150px 86px 96px auto;
+      align-content: start;
+      min-height: 410px;
+      padding: clamp(28px, 4vw, 48px);
+      background: var(--white);
+    }
+
+    .criteria-num {
+      display: block;
+      margin-bottom: 0;
+      color: var(--active-blue);
+      font-family: var(--heading);
+      font-size: 2rem;
+    }
+
+    .criteria-card h3 {
+      margin-bottom: 0;
+      font-family: var(--heading);
+      font-size: 1.75rem;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .criteria-question {
+      min-height: 0;
+      margin-bottom: 0;
+      padding-top: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .clean-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .clean-list li {
+      position: relative;
+      padding: 8px 0 8px 18px;
+      color: var(--neutral-750);
+      font-size: 0.84rem;
+      border-top: 1px solid var(--neutral-300);
+    }
+
+    .clean-list li::before {
+      content: "";
+      position: absolute;
+      top: 17px;
+      left: 0;
+      width: 7px;
+      height: 1px;
+      background: var(--active-blue);
+    }
+
+    .journey {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr 1fr;
+      align-items: stretch;
+      border-top: 1px solid var(--neutral-400);
+      border-bottom: 1px solid var(--neutral-400);
+    }
+
+    .phase {
+      padding: 34px 30px 38px;
+    }
+
+    .phase + .phase {
+      border-left: 1px solid var(--neutral-400);
+    }
+
+    .phase-date {
+      display: block;
+      margin-bottom: 54px;
+      color: var(--active-blue);
+      font-family: var(--heading);
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .phase h3 {
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .phase > p {
+      min-height: 48px;
+      margin-bottom: 0;
+      color: var(--neutral-875);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .phase .clean-list li {
+      box-sizing: border-box;
+      height: 58px;
+      font-size: 0.8rem;
+    }
+
+    .phase-focus {
+      padding-top: 30px;
+      border-top: 4px solid var(--active-blue);
+      background: rgba(206, 236, 255, 0.45);
+    }
+
+    .phase-focus .clean-list li {
+      border-top-color: rgba(0, 15, 71, 0.18);
+    }
+
+    .prep-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 48px;
+    }
+
+    .prep-grid::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: rgba(0, 15, 71, 0.18);
+      transform: translateX(-0.5px);
+    }
+
+    .prep-grid > div {
+      min-width: 0;
+    }
+
+    .prep-grid > div + div {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .prep-grid h4 {
+      min-height: 48px;
+      margin: 0;
+      color: var(--neutral-875);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .osm-note {
+      padding: clamp(44px, 6vw, 72px) 0;
+      background: var(--white);
+      border-top: 1px solid var(--neutral-400);
+      border-bottom: 1px solid var(--neutral-400);
+    }
+
+    .osm-note-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(42px, 7vw, 88px);
+      padding-left: 24px;
+      border-left: 4px solid var(--active-blue);
+    }
+
+    .osm-note .section-kicker {
+      margin-bottom: 14px;
+    }
+
+    .osm-note h3 {
+      max-width: 520px;
+      margin: 0;
+      font-family: var(--heading);
+      font-size: clamp(1.9rem, 3.4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    .osm-note-copy > p {
+      max-width: 620px;
+      margin-bottom: 18px;
+      color: var(--neutral-875);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .osm-note-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .osm-note-list li {
+      position: relative;
+      padding: 9px 0 9px 18px;
+      border-top: 1px solid var(--neutral-300);
+      color: var(--neutral-750);
+      font-size: 0.82rem;
+    }
+
+    .osm-note-list li::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 0;
+      width: 7px;
+      height: 1px;
+      background: var(--active-blue);
+    }
+
+    .agenda-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(290px, 0.4fr);
+      gap: clamp(50px, 8vw, 100px);
+      align-items: start;
+    }
+
+    .agenda {
+      border-top: 1px solid rgba(255, 255, 255, 0.26);
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 28px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .agenda-time {
+      color: var(--blue-500);
+      font-family: var(--heading);
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .agenda-item h3 {
+      margin-bottom: 7px;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .agenda-item p {
+      max-width: 650px;
+      margin-bottom: 0;
+      color: var(--neutral-300);
+      font-size: 0.87rem;
+    }
+
+    .day-note {
+      position: sticky;
+      top: 112px;
+      border-top: 4px solid var(--gold);
+      background: var(--white);
+      color: var(--midnight);
+    }
+
+    .day-note-block {
+      padding: 26px 28px;
+    }
+
+    .day-note-block + .day-note-block {
+      border-top: 1px solid var(--neutral-300);
+    }
+
+    .day-note span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--neutral-750);
+      font-size: 0.7rem;
+    }
+
+    .day-note strong {
+      display: block;
+      font-family: var(--heading);
+      font-size: 1.45rem;
+      font-weight: 400;
+      line-height: 1.18;
+    }
+
+    .day-note p {
+      margin: 8px 0 0;
+      color: var(--neutral-750);
+      font-size: 0.79rem;
+    }
+
+    .closing {
+      padding: clamp(88px, 12vw, 160px) 0 44px;
+      background: var(--sky);
+    }
+
+    .closing-grid {
+      max-width: 980px;
+    }
+
+    .closing h2 {
+      max-width: 980px;
+      margin-bottom: 24px;
+      font-size: clamp(3.5rem, 7vw, 6.6rem);
+      line-height: 0.98;
+    }
+
+    .closing p {
+      max-width: 610px;
+      margin-bottom: 0;
+      font-size: 1.02rem;
+    }
+
+    footer {
+      margin-top: 100px;
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      border-top: 1px solid rgba(0, 15, 71, 0.25);
+      color: var(--neutral-750);
+      font-size: 0.68rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 560ms ease, transform 560ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes scan {
+      0% { opacity: 0.95; transform: scale(0.68); }
+      75%, 100% { opacity: 0; transform: scale(1.7); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .hero { min-height: auto; }
+      .hero-grid,
+      .agenda-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .map-card { min-height: 440px; }
+      .city-map { min-height: 440px; }
+      .day-note { position: static; }
+      .framework {
+        grid-template-columns: 1fr 1fr;
+      }
+      .framework-step:nth-child(3),
+      .framework-step:nth-child(5) {
+        border-left: 0;
+      }
+      .framework-step:nth-child(n+3) {
+        border-top: 1px solid var(--neutral-400);
+      }
+      .framework-step:nth-child(2)::after,
+      .framework-step:nth-child(4)::after {
+        display: none;
+      }
+      .challenge-context,
+      .business-question,
+      .challenge-task {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+      }
+      .challenge-note { margin-left: 0; }
+      .spike { grid-template-columns: 1fr; }
+      .criteria-grid { grid-template-columns: 1fr; }
+      .criteria-card { display: block; min-height: auto; }
+      .criteria-num { margin-bottom: 38px; }
+      .criteria-card h3 { margin-bottom: 16px; }
+      .criteria-question { margin-bottom: 22px; padding-top: 0; }
+      .journey { grid-template-columns: 1fr; }
+      .osm-note-grid { grid-template-columns: 1fr; gap: 28px; }
+      .phase + .phase {
+        border-top: 1px solid var(--neutral-400);
+        border-left: 0;
+      }
+      .phase-date { margin-bottom: 32px; }
+      .phase .clean-list li { height: auto; min-height: 0; }
+    }
+
+    @media (max-width: 640px) {
+      .topbar { height: 64px; }
+      .topbar-inner { width: calc(100vw - 28px); max-width: var(--content); }
+      .brand-logo { width: 112px; }
+      .brand-partner { font-size: 0.66rem; }
+      .container { width: calc(100vw - 40px); max-width: var(--content); }
+      .hero { padding-top: 112px; }
+      h1 { font-size: clamp(2.85rem, 13vw, 3.55rem); }
+      .hero-grid { overflow: hidden; }
+      .hero-grid > *, .hero-copy, .map-card, .city-map { min-width: 0; max-width: 100%; }
+      .hero-question { font-size: 1.42rem; }
+      .hero-copy h1, .hero-question, .hero-lead { overflow-wrap: anywhere; }
+      .hero-actions { gap: 8px; }
+      .button { padding-inline: 13px; font-size: 0.78rem; }
+      .map-card,
+      .city-map { min-height: 380px; }
+      .business-question { margin: 42px 0 0; padding: 30px 0; }
+      .business-question p { font-size: 1.75rem; }
+      .challenge-outcomes { grid-template-columns: minmax(0, 1fr); }
+      .challenge-outcome + .challenge-outcome {
+        padding-left: 0;
+        border-top: 1px solid var(--neutral-400);
+        border-left: 0;
+      }
+      .challenge-outcome { min-height: 72px; }
+      .hero-meta { grid-template-columns: 1fr; }
+      .meta-item,
+      .meta-item + .meta-item {
+        padding: 14px 0;
+        border-left: 0;
+      }
+      .meta-item + .meta-item {
+        border-top: 1px solid rgba(0, 15, 71, 0.22);
+      }
+      .framework { grid-template-columns: 1fr; }
+      .framework-step,
+      .framework-step:nth-child(3),
+      .framework-step:nth-child(5) {
+        min-height: 0;
+        border-top: 1px solid var(--neutral-400);
+        border-left: 0;
+      }
+      .framework-step:first-child { border-top: 0; }
+      .framework-step:not(:last-child)::after {
+        top: auto;
+        right: 24px;
+        bottom: -11px;
+        transform: rotate(90deg);
+      }
+      .step-num { margin-bottom: 26px; }
+      .spike-option { grid-template-columns: 34px 1fr; }
+      .prep-grid { grid-template-columns: 1fr; gap: 0; }
+      .prep-grid::after { display: none; }
+      .prep-grid > div + div {
+        margin: 20px 0 0;
+        padding: 20px 0 0;
+        border-top: 1px solid rgba(0, 15, 71, 0.18);
+      }
+      .agenda-item { grid-template-columns: 1fr; gap: 10px; }
+      footer { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 16mm; }
+      body { font-size: 10pt; }
+      .topbar,
+      .hero-actions,
+      .scroll-progress { display: none !important; }
+      .hero {
+        min-height: auto;
+        padding: 12mm 0;
+        background: var(--sky) !important;
+      }
+      .hero-grid,
+      .agenda-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+      h1 { font-size: 42pt; }
+      .section { padding: 15mm 0; break-before: page; }
+      .closing { padding-top: 15mm; break-before: page; }
+      .framework { grid-template-columns: repeat(5, 1fr); }
+      .criteria-grid { grid-template-columns: repeat(3, 1fr); }
+      .journey { grid-template-columns: 1fr 1.45fr 1fr; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .day-note { position: static; }
+      .criteria-card { display: block; min-height: 0; }
+      .criteria-card h3 { margin-bottom: 16px; }
+      .criteria-question { margin-bottom: 22px; padding-top: 0; }
+      a { text-decoration: none; }
+      footer { margin-top: 15mm; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#challenge">Direkt zur Challenge</a>
+
+  <header class="topbar" aria-label="Seitennavigation">
+    <div class="topbar-inner">
+      <a class="brand" href="#start" aria-label="Zum Anfang">
+        <svg class="brand-logo" role="img" aria-labelledby="ow-logo-title" viewBox="0 0 261.5 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden"><title id="ow-logo-title">Oliver Wyman, a Marsh business</title><path d="M178.323 45.895C178.323 48.362 176.251 50 173.469 50 171.969 50 170.726 49.684 169.503 49.013L169.503 47.039 169.523 47.039C170.431 47.947 171.95 48.598 173.529 48.598 175.482 48.598 176.706 47.453 176.706 45.973 176.706 42.46 169.543 44.73 169.543 39.657 169.543 37.269 171.457 35.71 174.022 35.71 175.285 35.71 176.35 35.888 177.357 36.44L177.357 38.414 177.337 38.414C176.567 37.644 175.285 37.111 173.963 37.111 172.246 37.111 171.161 38.177 171.161 39.578 171.161 43.091 178.324 40.821 178.324 45.894ZM160.603 39.579C160.603 38.178 161.688 37.112 163.405 37.112 164.727 37.112 166.01 37.645 166.779 38.415L166.799 38.415 166.799 36.441C165.793 35.888 164.727 35.711 163.464 35.711 160.899 35.711 158.985 37.27 158.985 39.658 158.985 44.73 166.148 42.46 166.148 45.974 166.148 47.454 164.925 48.599 162.971 48.599 161.392 48.599 159.873 47.948 158.965 47.04L158.945 47.04 158.945 49.014C160.168 49.685 161.412 50.001 162.911 50.001 165.693 50.001 167.765 48.363 167.765 45.896 167.765 40.824 160.602 43.094 160.602 39.58ZM148.348 49.763 157.05 49.763 157.05 48.322 150.045 48.322 150.045 43.585 154.978 43.585 154.978 42.144 150.045 42.144 150.045 37.388 157.05 37.388 157.05 35.947 148.348 35.947 148.348 49.762ZM143.141 45.875 134.323 35.713 133.985 35.711 133.985 49.763 135.583 49.763 135.583 39.757 144.497 50 144.739 50 144.739 35.948 143.141 35.948 143.141 45.875ZM128.609 49.763 130.306 49.763 130.306 35.948 128.609 35.948 128.609 49.763ZM118.633 39.579C118.633 38.178 119.718 37.112 121.435 37.112 122.757 37.112 124.04 37.645 124.809 38.415L124.829 38.415 124.829 36.441C123.823 35.888 122.757 35.711 121.494 35.711 118.929 35.711 117.015 37.27 117.015 39.658 117.015 44.73 124.178 42.46 124.178 45.974 124.178 47.454 122.955 48.599 121.001 48.599 119.422 48.599 117.903 47.948 116.995 47.04L116.975 47.04 116.975 49.014C118.198 49.685 119.442 50.001 120.941 50.001 123.723 50.001 125.795 48.363 125.795 45.896 125.795 40.824 118.632 43.094 118.632 39.58ZM112.959 44.375C112.959 47.138 111.479 48.539 109.348 48.539 107.256 48.539 105.776 47.098 105.776 44.256L105.776 35.947 104.079 35.947 104.079 44.295C104.079 48.005 106.151 49.999 109.209 49.999 112.485 49.999 114.557 47.907 114.557 44.374L114.557 35.947 112.959 35.947 112.959 44.374ZM101.683 45.698C101.683 48.106 100.045 49.764 97.421 49.764L92.37 49.764 92.37 35.949 97.145 35.949C99.592 35.949 101.23 37.469 101.23 39.679 101.23 40.824 100.618 41.929 99.572 42.541 100.914 43.212 101.683 44.317 101.683 45.699ZM94.067 42.066 97.047 42.066C98.547 42.066 99.533 41.198 99.533 39.796 99.533 38.316 98.546 37.388 97.047 37.388L94.067 37.388 94.067 42.065ZM100.006 45.836C100.006 44.395 98.98 43.468 97.48 43.468L94.066 43.468 94.066 48.323 97.48 48.323C98.98 48.323 100.006 47.376 100.006 45.836ZM81.853 41.652 75.677 41.652 75.677 35.948 72.993 35.948 72.993 49.763 75.677 49.763 75.677 43.98 81.853 43.98 81.853 49.763 84.537 49.763 84.537 35.948 81.853 35.948 81.853 41.652ZM63.6 39.698C63.6 38.672 64.508 37.902 65.987 37.902 67.329 37.902 68.651 38.455 69.5 39.264L69.579 39.264 69.579 36.521C68.494 35.929 67.29 35.712 65.948 35.712 63.126 35.712 60.995 37.33 60.995 39.955 60.995 45.146 67.941 43.152 67.941 45.955 67.941 46.981 66.875 47.83 65.277 47.83 63.619 47.83 62.12 47.139 61.113 46.172L61.034 46.172 61.034 49.034C62.257 49.705 63.678 50.001 65.158 50.001 68.236 50.001 70.545 48.304 70.545 45.679 70.545 40.607 63.599 42.758 63.599 39.699ZM58.944 40.369C58.944 37.744 56.872 35.948 54.07 35.948L48.821 35.948 48.821 49.763 51.505 49.763 51.505 38.277 53.853 38.277C55.313 38.277 56.28 39.086 56.28 40.369 56.28 41.672 55.313 42.5 53.853 42.5L52.255 42.5 52.255 42.993 56.32 49.763 59.339 49.763 55.925 44.316C57.74 43.744 58.944 42.283 58.944 40.369ZM41.115 35.948 47.44 49.763 44.579 49.763 43.454 47.158 37.771 47.158 36.646 49.763 34.022 49.763 40.327 35.948 41.115 35.948ZM42.566 45.105 40.612 40.585 38.659 45.105 42.566 45.105ZM25.872 45.658 26.563 45.658 30.056 43.448 30.056 49.764 32.641 49.764 32.641 35.949 31.832 35.949 25.873 45.659ZM18.867 35.948 18.867 49.763 21.452 49.763 21.452 43.447 24.945 45.657 25.636 45.657 19.677 35.947 18.868 35.947ZM6.806 35.948 12.908 49.763 11.073 49.763 9.79 46.763 3.24 46.763 1.957 49.763 0.28 49.763 6.363 35.948 6.806 35.948ZM9.258 45.5 6.495 39.046 3.772 45.5 9.258 45.5ZM261.5 0.423 261.5 25.516 261.01 25.516 244.975 10.221 244.975 25.094 240.535 25.094 240.535 0 241.136 0 257.061 15.225 257.061 0.423 261.501 0.423ZM226.638 0 238.426 25.093 233.317 25.093 231.238 20.441 221.231 20.441 219.152 25.093 214.466 25.093 226.218 0 226.639 0ZM229.617 16.776 226.199 9.199 222.851 16.776 229.616 16.776ZM200.13 13.569 188.446 0 187.868 0 187.868 25.093 192.273 25.093 192.273 10.961 199.814 19.49 200.166 19.49 207.707 10.961 207.707 25.093 212.358 25.093 212.358 0 211.815 0 200.131 13.569ZM174.476 12.018 167.429 0.423 162.038 0.423 171.904 16.423 171.904 25.093 176.696 25.093 176.696 16.353 186.527 0.423 181.488 0.423 174.476 12.018ZM153.09 15.049 146.888 2.643 146.359 2.643 140.58 15.013 136.07 0.422 131.454 0.422 139.369 25.515 139.772 25.515 146.5 11.136 153.546 25.515 153.948 25.515 161.793 0.423 157.494 0.423 153.089 15.049ZM120.995 8.317C120.995 3.63 117.295 0.423 112.292 0.423L102.919 0.423 102.919 25.093 107.711 25.093 107.711 4.582 111.904 4.582C114.512 4.582 116.238 6.027 116.238 8.318 116.238 10.644 114.511 12.124 111.904 12.124L108.592 12.124 108.592 12.265 116.309 25.093 121.7 25.093 115.604 15.366C118.846 14.344 120.995 11.736 120.995 8.317ZM81.881 25.093 98.83 25.093 98.83 21.111 86.673 21.111 86.673 14.767 95.13 14.767 95.13 10.785 86.673 10.785 86.673 4.582 98.83 4.582 98.83 0.423 81.881 0.423 81.881 25.093ZM67.715 16.106 60.456 0.423 55.347 0.423 67.311 25.516 67.732 25.516 79.66 0.423 74.938 0.423 67.715 16.106ZM48.267 25.093 53.059 25.093 53.059 0.423 48.267 0.423 48.267 25.093ZM32.734 0.423 27.942 0.423 27.942 25.093 44.715 25.093 44.715 21.111 32.735 21.111 32.735 0.423ZM24.031 12.723C24.031 20.335 18.886 25.516 12.015 25.516 5.144 25.516 0 20.335 0 12.723 0 5.181 5.145 0 12.016 0 18.887 0 24.032 5.181 24.032 12.723ZM19.274 12.793C19.274 7.507 16.103 4.158 12.015 4.158 7.927 4.158 4.756 7.506 4.756 12.793 4.756 18.15 7.927 21.498 12.015 21.498 16.103 21.498 19.274 18.15 19.274 12.793Z" fill="#000F47"/></svg>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-partner">STADS</span>
+      </a>
+      <nav class="nav-links" aria-label="Inhalt">
+        <a href="#challenge">Challenge</a>
+        <a href="#framework">Orientierung</a>
+        <a href="#criteria">Bewertung</a>
+        <a href="#journey">Vorbereitung</a>
+        <a href="#agenda">Ablauf</a>
+      </nav>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="start">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Hackathon-Briefing · 8. Oktober 2026</p>
+          <h1 id="hero-title">Willkommen zum Hackathon</h1>
+          <p class="hero-question serif">Eure Challenge: Wo liegt der nächste White Spot?</p>
+          <p class="hero-lead">Entwickelt eine datengetriebene Entscheidungsplattform, die neue Standorte sichtbar macht — nachvollziehbar, interaktiv und mit einem klaren eigenen Spike.</p>
+          <div class="hero-actions">
+            <a class="button" href="#challenge">Challenge verstehen <span class="button-arrow" aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="#agenda">Zum Tagesablauf</a>
+          </div>
+        </div>
+
+        <div class="map-card reveal" aria-label="Stadtkarte mit markiertem White Spot">
+          <svg class="city-map" viewBox="0 0 520 560" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">White-Spot-Karte</title>
+            <desc id="map-desc">Stadtplan mit Nachfragefeldern, Mobilitätsachse und einem markierten White Spot.</desc>
+            <g class="map-grid" opacity="0.45">
+              <line x1="0" y1="110" x2="520" y2="110"/><line x1="0" y1="220" x2="520" y2="220"/><line x1="0" y1="330" x2="520" y2="330"/><line x1="0" y1="440" x2="520" y2="440"/>
+              <line x1="104" y1="0" x2="104" y2="560"/><line x1="208" y1="0" x2="208" y2="560"/><line x1="312" y1="0" x2="312" y2="560"/><line x1="416" y1="0" x2="416" y2="560"/>
+            </g>
+            <g>
+              <rect class="block" x="34" y="82" width="94" height="80"/>
+              <rect class="block signal" x="146" y="72" width="112" height="92"/>
+              <rect class="block" x="278" y="76" width="86" height="88"/>
+              <rect class="block" x="386" y="88" width="98" height="82"/>
+              <rect class="block signal" x="26" y="190" width="122" height="96"/>
+              <rect class="block" x="169" y="188" width="78" height="100"/>
+              <rect class="block signal" x="274" y="192" width="114" height="88"/>
+              <rect class="block" x="407" y="198" width="82" height="86"/>
+              <rect class="block" x="29" y="320" width="93" height="88"/>
+              <rect class="block" x="144" y="315" width="111" height="102"/>
+              <rect class="block signal" x="282" y="315" width="93" height="94"/>
+              <rect class="block signal" x="399" y="320" width="90" height="96"/>
+              <rect class="block" x="37" y="443" width="112" height="74"/>
+              <rect class="block signal" x="169" y="438" width="89" height="82"/>
+              <rect class="block" x="282" y="438" width="111" height="76"/>
+              <rect class="block" x="414" y="444" width="70" height="74"/>
+            </g>
+            <path class="road-edge" d="M-10 470 C120 402, 150 296, 260 270 S430 205, 540 96"/>
+            <path class="road" d="M-10 470 C120 402, 150 296, 260 270 S430 205, 540 96"/>
+            <path class="transit" d="M20 490 C130 430, 168 317, 272 292 S430 225, 505 143"/>
+            <g transform="translate(322 237)">
+              <circle class="candidate-ring" cx="0" cy="0" r="30"/>
+              <circle class="candidate-core" cx="0" cy="0" r="8"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="hero-meta reveal">
+          <div class="meta-item">
+            <span>Format</span>
+            <strong>Team-Hackathon</strong>
+          </div>
+          <div class="meta-item">
+            <span>Ergebnis</span>
+            <strong>Interaktive Decision Platform</strong>
+          </div>
+          <div class="meta-item">
+            <span>Gewinnerpreis</span>
+            <strong>🏆 6 Monate Claude-Abo pro Teammitglied</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="challenge" aria-labelledby="challenge-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="section-kicker">01 · Die Challenge</p>
+          <h2 id="challenge-title">Findet die besten Lücken im urbanen Markt</h2>
+          <p class="section-deck">Ein deutsches Handelsunternehmen sucht Pilotstandorte für ein neues Premium-Food-Konzept.</p>
+        </header>
+
+        <div class="challenge-story reveal">
+          <div class="challenge-context">
+            <span class="challenge-label">Ausgangssituation</span>
+            <div class="challenge-context-copy">
+              <p>Ein etabliertes deutsches Lebensmittelunternehmen plant ein urbanes Premium- und Specialty-Food-Konzept. Es soll sich vom klassischen Supermarkt unterscheiden und auf Qualität, Genuss, Frische und Convenience setzen — etwa als moderner italienisch oder mediterran inspirierter Food Market, als Deli oder als vergleichbares Spezialitätenformat.</p>
+              <p>Wie genau das Konzept aussieht und wen es anspricht, schärft ihr im Team.</p>
+            </div>
+          </div>
+
+          <div class="business-question">
+            <span>Die Business-Frage</span>
+            <p>In welchen Städten, Stadtteilen oder Mikrolagen liegen die attraktivsten White Spots für Pilot-Standorte?</p>
+          </div>
+
+          <div class="challenge-task">
+            <span class="challenge-label">Eure Aufgabe</span>
+            <div class="challenge-task-copy">
+              <p>Baut eine datengetriebene Entscheidungsplattform mit interaktiver Karte. Sie soll drei Dinge leisten:</p>
+              <div class="challenge-outcomes" aria-label="Kernfunktionen der Lösung">
+                <div class="challenge-outcome">
+                  <span>01</span>
+                  <strong>White Spots identifizieren</strong>
+                </div>
+                <div class="challenge-outcome">
+                  <span>02</span>
+                  <strong>Standorte vergleichen</strong>
+                </div>
+                <div class="challenge-outcome">
+                  <span>03</span>
+                  <strong>Treiber erklären</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="challenge-note"><strong>Es gibt nicht die eine richtige Lösung.</strong> Gesucht sind schlüssige Analysen, kreative Datenansätze und ungewöhnliche Wege, Standortpotenzial messbar zu machen.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-neutral" id="framework" aria-labelledby="framework-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="section-kicker">02 · Euer Orientierungsrahmen</p>
+          <h2 id="framework-title">Von der Konzeptidee zur Entscheidung</h2>
+          <p class="section-deck">Die fünf Schritte geben Orientierung. Wie ihr sie löst, entscheidet ihr selbst.</p>
+        </header>
+
+        <div class="framework reveal">
+          <article class="framework-step">
+            <span class="step-num">01</span>
+            <h3>Konzept und ICP</h3>
+            <p>Wie sieht euer Konzept aus? Für wen ist es gedacht? Definiert euer Ideal Customer Profile.</p>
+          </article>
+          <article class="framework-step">
+            <span class="step-num">02</span>
+            <h3>Signale und Daten</h3>
+            <p>Welche beobachtbaren Merkmale zeigen, wo Zielgruppe und Marktpotenzial zu finden sind?</p>
+          </article>
+          <article class="framework-step">
+            <span class="step-num">03</span>
+            <h3>Räumliches Modell</h3>
+            <p>Grid, Quartiere, Catchment Areas, Mobilitätsräume, oder eine eigene räumliche Logik?</p>
+          </article>
+          <article class="framework-step">
+            <span class="step-num">04</span>
+            <h3>White-Spot-Logik</h3>
+            <p>Wie kombiniert ihr Nachfrage, Wettbewerb, Umfeld und weitere Faktoren zu einem Score?</p>
+          </article>
+          <article class="framework-step">
+            <span class="step-num">05</span>
+            <h3>Decision Platform</h3>
+            <p>Wie können Nutzer Ergebnisse erkunden, Standorte vergleichen und ihre Treiber verstehen?</p>
+          </article>
+        </div>
+
+        <div class="spike reveal">
+          <div class="spike-copy">
+            <span class="spike-label">Der Spike</span>
+            <h3>Wo wird eure Lösung wirklich besonders?</h3>
+            <p>Setzt mindestens einen bewussten Schwerpunkt. Nicht mehr Detail oder mehr Komplexität zählt, sondern eine neue Perspektive oder ein cleverer Lösungsweg.</p>
+          </div>
+          <div class="spike-options">
+            <p class="spike-examples-label">Beispiele für mögliche Schwerpunkte</p>
+            <div class="spike-option">
+              <span>01</span>
+              <div>
+                <strong>ICP neu denken</strong>
+                <p>Ein ungewöhnliches, aber plausibles Modell für die relevante Zielgruppe.</p>
+              </div>
+            </div>
+            <div class="spike-option">
+              <span>02</span>
+              <div>
+                <strong>Daten kreativ nutzen</strong>
+                <p>Überraschende Proxies, Quellen, oder Ableitungen für schwer messbare Signale.</p>
+              </div>
+            </div>
+            <div class="spike-option">
+              <span>03</span>
+              <div>
+                <strong>Raum anders strukturieren</strong>
+                <p>Eine neue Logik für urbane Räume, Bewegungsmuster, oder Einzugsgebiete.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="criteria" aria-labelledby="criteria-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="section-kicker">03 · Was eine starke Lösung ausmacht</p>
+          <h2 id="criteria-title">Klarheit schlägt unnötige Komplexität</h2>
+          <p class="section-deck">Die Jury bewertet eure Gesamtlogik, die analytische Qualität und den eigenständigen Spike.</p>
+        </header>
+
+        <div class="criteria-grid reveal">
+          <article class="criteria-card">
+            <span class="criteria-num">01</span>
+            <h3>Schlüssige Gesamtlösung</h3>
+            <p class="criteria-question">Passt die Geschichte von der Geschäftsidee bis zum White Spot zusammen?</p>
+            <ul class="clean-list">
+              <li>Klare Logik und nachvollziehbare Annahmen</li>
+              <li>Sinnvolle Verbindung zwischen ICP, Daten und Standortbewertung</li>
+            </ul>
+          </article>
+
+          <article class="criteria-card">
+            <span class="criteria-num">02</span>
+            <h3>Analytische Qualität</h3>
+            <p class="criteria-question">Wie belastbar ist eure Analyse?</p>
+            <ul class="clean-list">
+              <li>Sinnvoller Einsatz verfügbarer Daten</li>
+              <li>Plausible Methoden und Modelle</li>
+              <li>Transparenz über Annahmen und Limitationen</li>
+              <li>Keine Komplexität um ihrer selbst willen</li>
+            </ul>
+          </article>
+
+          <article class="criteria-card">
+            <span class="criteria-num">03</span>
+            <h3>Innovation Spike</h3>
+            <p class="criteria-question">Wo habt ihr bewusst anders gedacht?</p>
+            <ul class="clean-list">
+              <li>Origineller Lösungsansatz</li>
+              <li>Kreative Nutzung von Daten oder Technologie</li>
+              <li>Neue Perspektive auf einen Teil der Challenge</li>
+              <li>Eine Idee jenseits des naheliegenden Standardwegs</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-neutral" id="journey" aria-labelledby="journey-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="section-kicker">04 · Der Weg zum Hackathon</p>
+          <h2 id="journey-title">Eine Woche zur Vorbereitung, ein Tag für die Umsetzung</h2>
+          <p class="section-deck">Nutzt die Vorbereitung für Teamsetup, Datencheck und erste Hypothesen.</p>
+        </header>
+
+        <div class="journey reveal">
+          <article class="phase">
+            <span class="phase-date">1. Okt.</span>
+            <h3>Startschuss</h3>
+            <p>Challenge und Rahmen werden geteilt.</p>
+            <ul class="clean-list">
+              <li>Ihr erfahrt, wer in eurem Team ist</li>
+              <li>Business-Kontext und Aufgabe</li>
+              <li>Organisatorische Informationen</li>
+              <li>Zeitplan und Ablauf</li>
+            </ul>
+          </article>
+
+          <article class="phase phase-focus">
+            <span class="phase-date">1.–7. Okt.</span>
+            <h3>Vorbereitung</h3>
+            <div class="prep-grid">
+              <div>
+                <h4>Teamsetup</h4>
+                <ul class="clean-list">
+                  <li>Teameinteilung</li>
+                  <li>Rollen und Zusammenarbeit</li>
+                  <li>Gemeinsamer Brainstorming-Call</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Daten und Ideen</h4>
+                <ul class="clean-list">
+                  <li>Konzept abstimmen</li>
+                  <li>Offene Datenquellen prüfen</li>
+                  <li>ICP- und Standortsignale diskutieren</li>
+                  <li>Erste Hypothesen formulieren</li>
+                  <li>Möglichen Spike identifizieren</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="phase">
+            <span class="phase-date">8. Okt.</span>
+            <h3>Hackathon</h3>
+            <p>Von der Hypothese zur funktionierenden Demo.</p>
+            <ul class="clean-list">
+              <li>Gemeinsamer Kick-off</li>
+              <li>Analyse und Entwicklung</li>
+              <li>Sparring mit dem Oliver-Wyman-Team</li>
+              <li>Pitch und Demo</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="osm-note" aria-labelledby="osm-note-title">
+      <div class="container">
+        <div class="osm-note-grid reveal">
+          <div>
+            <p class="section-kicker">Hinweis zum Datenabruf</p>
+            <h3 id="osm-note-title">OpenStreetMap ist wahrscheinlich euer erster Anlaufpunkt für Daten.</h3>
+          </div>
+          <div class="osm-note-copy">
+            <p>Die öffentlichen Overpass-Instanzen sind eine gemeinsam genutzte Infrastruktur. Geht deshalb rücksichtsvoll mit ihnen um und plant eure Abfragen möglichst früh und bewusst.</p>
+            <ul class="osm-note-list">
+              <li>Testet eure Abfragen und relevanten Untersuchungsgebiete idealerweise schon vor dem 8. Oktober.</li>
+              <li>Speichert erfolgreiche Antworten lokal und verwendet sie bei unveränderten Abfragen erneut.</li>
+              <li>Lasst pro Team nur eine Person den Abruf starten und bündelt benötigte POI-Typen in wenigen, räumlich begrenzten Requests.</li>
+              <li>Bei einem Rate Limit: kurz warten, den vorhandenen Cache nutzen und die Anfrage später erneut versuchen.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-midnight" id="agenda" aria-labelledby="agenda-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="section-kicker">05 · Ablauf am Hackathon-Tag</p>
+          <h2 id="agenda-title">Von 10:30 Uhr bis zum gemeinsamen Dinner</h2>
+          <p class="section-deck">Am Hackathon-Tag arbeitet ihr an eurer Lösung. Unser Team steht euch als Sparringspartner zur Seite.</p>
+        </header>
+
+        <div class="agenda-layout">
+          <div class="agenda reveal">
+            <article class="agenda-item">
+              <time class="agenda-time" datetime="2026-10-08T10:30">10:30–11:00 Uhr</time>
+              <div>
+                <h3>Einführung und Oliver-Wyman-Vorstellung</h3>
+                <p>Ankommen, Welcome, Vorstellung von Oliver Wyman und unserem Data &amp; Analytics Team sowie organisatorischer Rahmen.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <time class="agenda-time" datetime="2026-10-08T11:00">11:00 Uhr</time>
+              <div>
+                <h3>Kick-off</h3>
+                <p>Start der Challenge. Danach: analysieren, entwickeln, testen, und die Decision Platform fertigstellen.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <time class="agenda-time" datetime="2026-10-08T17:30">17:30 Uhr</time>
+              <div>
+                <h3>Pitches und Demos</h3>
+                <p>Kurzer Überblick über eure Vorgehensweise — und vor allem eine überzeugende Demo der datengetriebenen Entscheidungsplattform.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <time class="agenda-time" datetime="2026-10-08T18:30">18:30 Uhr</time>
+              <div>
+                <h3>Abschluss und Gewinner</h3>
+                <p>Juryentscheidung, Preisvergabe und gemeinsamer Abschluss.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <span class="agenda-time">Danach</span>
+              <div>
+                <h3>🍝 Gemeinsames Dinner</h3>
+                <p>Den Tag gemeinsam ausklingen lassen und euch mit den anderen Studierenden sowie unserem Team austauschen.</p>
+              </div>
+            </article>
+          </div>
+
+          <aside class="day-note reveal">
+            <div class="day-note-block">
+              <span>Was ihr zeigt</span>
+              <strong>Eine kurze Story. Eine funktionierende Demo.</strong>
+              <p>Erklärt kurz euer Vorgehen und zeigt dann eure Entscheidungsplattform.</p>
+            </div>
+            <div class="day-note-block">
+              <span>Gewinnerpreis</span>
+              <strong>🏆 6 Monate Claude-Abo</strong>
+              <p>Für jedes Mitglied des Gewinnerteams.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="container">
+        <div class="closing-grid reveal">
+          <p class="section-kicker">Bereit?</p>
+          <h2 id="closing-title">Wir sehen uns am 8. Oktober.</h2>
+          <p>Wir freuen uns auf euch.</p>
+        </div>
+
+        <footer>
+          <span>© 2026 Oliver Wyman LLC</span>
+          <span>Oliver Wyman × STADS Hackathon · 8. Oktober 2026</span>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const progress = document.querySelector('.scroll-progress');
+    const navLinks = [...document.querySelectorAll('.nav-links a')];
+    const sections = navLinks
+      .map(link => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      progress.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+    }
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((node) => revealObserver.observe(node));
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => {
+          const active = link.getAttribute('href') === `#${entry.target.id}`;
+          if (active) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  </script>
+</body>
+</html>
+
+
